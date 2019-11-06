@@ -6,7 +6,7 @@
       placeholder="Type your message"
       rows="3"
       v-model="message"
-      @keyup.enter="send"
+      @keydown.enter.prevent="send"
     ></textarea>
     <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
     <i class="fa fa-file-image-o"></i>
@@ -22,7 +22,7 @@ export default {
   },
   watch: {
     contactActive: function() {
-      this.message = "";
+      this.message = ""
     }
   },
   data() {
@@ -32,11 +32,10 @@ export default {
   },
   methods: {
     send: function() {
-      if (this.message.trim() === "") {
-        return;
+      if (this.message.trim() !== "") {
+        this.$emit("send", this.message.trim())
       }
-      this.$emit("send", this.message.trim());
-      this.message = "";
+      this.message = ""
     }
   }
 };
